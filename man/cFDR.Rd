@@ -9,7 +9,7 @@ cFDR(data, p1, p2, p2_threshold = 0.001)
 \arguments{
 \item{data}{data frame or (numeric) matrix with p-values as columns}
 
-\item{p1}{p-values for which the cFDR will be estimated; either the name of the columns in
+\item{p1}{p-values for which the cFDR will be estimated; either the name/index of the columns in
 \code{data}, or a vectors of p-values}
 
 \item{p2}{the p-values on which the cFDR will be conditioned on; either name or vector of p-values
@@ -19,7 +19,9 @@ cFDR(data, p1, p2, p2_threshold = 0.001)
 with \code{p2} \leq \code{p2_threshold} are included}
 }
 \value{
-A data frame consisting of the p-values and the cFDR
+A data frame with column cFDR: if \code{data} was specified, the column
+is simply added at the end; if only \code{p1} and \code{p2} were specified, a
+data frame with three columns (the original p-values and the cFDR).
 }
 \description{
 Estimate the conditional false discovery rate for a set of p-values,
