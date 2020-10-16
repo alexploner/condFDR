@@ -27,3 +27,9 @@ data frame with three columns (the original p-values and the cFDR).
 Estimate the conditional false discovery rate for a set of p-values,
 conditional on a second set of p-values
 }
+\examples{
+data(psynth)
+res = cFDR(psynth, "p1", "p2", p2_threshold = 1E-5)
+head(res)
+head(subset(res, cFDR < 0.01))
+}

@@ -28,3 +28,9 @@ data frame with five columns (the original p-values, plus the cFDRs and the ccFD
 Estimate the conjunctional conditional false discovery rate for two set of p-values,
 conditional on each other, as measure for pleiotropy.
 }
+\examples{
+data(psynth)
+res = ccFDR(psynth, "p1", "p2", p_threshold = 1E-5)
+head(res)
+head(subset(res, ccFDR < 0.01))
+}

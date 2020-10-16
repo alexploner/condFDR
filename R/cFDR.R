@@ -16,6 +16,11 @@
 #' data frame with three columns (the original p-values and the cFDR).
 #'
 #' @export
+#' @examples
+#' data(psynth)
+#' res = cFDR(psynth, "p1", "p2", p2_threshold = 1E-5)
+#' head(res)
+#' head(subset(res, cFDR < 0.01))
 cFDR = function(data, p1, p2, p2_threshold = 1E-3)
 {
   ## Extract the data
@@ -90,6 +95,11 @@ cFDR = function(data, p1, p2, p2_threshold = 1E-3)
 #' data frame with five columns (the original p-values, plus the cFDRs and the ccFDR).
 #'
 #' @export
+#' @examples
+#' data(psynth)
+#' res = ccFDR(psynth, "p1", "p2", p_threshold = 1E-5)
+#' head(res)
+#' head(subset(res, ccFDR < 0.01))
 ccFDR = function(data, p1, p2, p_threshold = 1E-3)
 {
   ## Extract the data
