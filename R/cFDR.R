@@ -150,4 +150,15 @@ ccFDR = function(data, p1, p2, p_threshold = 1E-3)
   ret
 }
 
-
+#' Synthetic SNP p-values
+#'
+#' Synthetic p-values for two phenotypes across a moderately larger number of
+#' (fake) SNPs.
+#'
+#' @format A data frame with 1,750,000 rows and 3 variables:
+#' \describe{
+#'   \item{SNP}{ids of fictitious SNPs}
+#'   \item{p1}{p-values for first phenotype}
+#'   \item{p2}{p-values for second phenotype}
+#' }
+"psynth"
