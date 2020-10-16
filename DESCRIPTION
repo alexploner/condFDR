@@ -1,15 +1,19 @@
 Package: cFDR
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Conditional and Conjuncational FDR
+Version: 0.9.9
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    c(person(given = "Alexander",
+           family = "Ploner",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "alexander.ploner@ki.se",
+           comment = c(ORCID = "0000-0002-5042-8326")),
+      person(given = "Xiaoying",
+           family = "Kang",
+           role = "ctb",
+           email = "xiaoying.kang@ki.se") )
+Description: Given two parallel vectors of p-values, calculate the conditional 
+    and conjunctional false discovery rates.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
