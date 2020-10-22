@@ -1,5 +1,5 @@
 
-# cFDR
+# condFDR
 
 This package allows the calculation of the conditional and conjunctional conditional 
 false discovery rate (cFDR, ccFDR) from two parallel sets of p-values. The typical
@@ -15,7 +15,7 @@ You can install the current version of cFDR from [GitHub](https://github.com/) w
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("alexploner/cFDR")
+devtools::install_github("alexploner/condFDR")
 ```
 
 ## Example
@@ -23,7 +23,7 @@ devtools::install_github("alexploner/cFDR")
 This is how you can estimate the conditional FDR for p1, conditioned on p2:
 
 ``` r
-library(cFDR)
+library(condFDR)
 data(psynth)
 res1 = cFDR(psynth, "p1", "p2", p2_threshold = 1E-5)
 head(res1)

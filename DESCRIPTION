@@ -1,4 +1,4 @@
-Package: cFDR
+Package: condFDR
 Title: Conditional and Conjuncational FDR
 Version: 0.9.9
 Authors@R: 
