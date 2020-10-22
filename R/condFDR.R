@@ -1,3 +1,31 @@
+#' condFDR: a package for calculating conditional and conjunctional false disovery rate
+#'
+#' Given a suitably pruned set of SNPs with p-values for two distinct phenotypes,
+#' the conditional FDR can be used to provide improved multiple-testing adjusted
+#' inference for the genetic associations for one phenotype, conditional on the
+#' associations seen for the second phenotype. In the same setting, the conjuncational
+#' FDR can be used to provide improved and adjusted inference for SNPs that are
+#' associated with both phenotypes (Andreassen et al., 2013; Smeland et al., 2020).
+#'
+#' @section Functionality:
+#' This package provides two functions, \code{\link{cFDR}} and \code{\link{ccFDR}},
+#' that implement the conditional and conjunctional FDR, respectively.
+#'
+#' @references
+#'   \itemize{
+#'     \item Andreassen OA et al (2013) Improved detection of common variants
+#'           associated with schizophrenia by leveraging pleiotropy with
+#'           cardiovascular-disease risk factors. Am J Hum Genet 92:197–209.
+#'           \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3567279/}
+#'     \item Smeland  OB et al (2020) Discovery of shared genomic loci using the
+#'     conditional false discovery rate approach. Human Genetics (2020) 139:85–94
+#'     \url{https://doi.org/10.1007/s00439-019-02060-2}
+#'   }
+#'
+#' @docType package
+#' @name condFDR-package
+NULL
+
 #' Conditional false discovery rate
 #'
 #' Estimate the conditional false discovery rate for a set of p-values,

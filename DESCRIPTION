@@ -1,7 +1,7 @@
 Package: condFDR
-Title: Conditional and conjuncational false discovery rate
+Title: Conditional and conjunctional false discovery rate
 Date: 2020-10-22
-Version: 0.9.9
+Version: 0.9.9.9
 Authors@R: 
     c(person(given = "Alexander",
            family = "Ploner",
