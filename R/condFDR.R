@@ -9,7 +9,7 @@
 #' @param p2 the p-values on which the cFDR will be conditioned on; either name or vector of p-values
 #'           \code{data}, or a vectors of p-values
 #' @param p2_threshold cutoff for pre-filtering on \code{p2}: only variants
-#'                     with \code{p2} \leq \code{p2_threshold} are included
+#'                     with \code{p2} \eqn{\leq}{<=} \code{p2_threshold} are included
 #'
 #' @return A data frame with column cFDR: if \code{data} was specified, the column
 #' is simply added at the end; if only \code{p1} and \code{p2} were specified, a

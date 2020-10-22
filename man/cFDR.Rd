@@ -16,7 +16,7 @@ cFDR(data, p1, p2, p2_threshold = 0.001)
 \code{data}, or a vectors of p-values}
 
 \item{p2_threshold}{cutoff for pre-filtering on \code{p2}: only variants
-with \code{p2} \leq \code{p2_threshold} are included}
+with \code{p2} \eqn{\leq}{<=} \code{p2_threshold} are included}
 }
 \value{
 A data frame with column cFDR: if \code{data} was specified, the column
