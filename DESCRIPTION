@@ -10,7 +10,11 @@ Authors@R:
       person(given = "Xiaoying",
            family = "Kang",
            role = "ctb",
-           email = "xiaoying.kang@ki.se") )
+           email = "xiaoying.kang@ki.se"),
+      person(given = "Yunzhang",
+            family = "Wang",
+            role = "ctb", 
+            email = "yunzhang.wang@ki.se"))
 Description: Given two parallel vectors of p-values, calculate the conditional 
     and conjunctional false discovery rates.
 License: MIT + file LICENSE
@@ -20,3 +24,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: 
     R (>= 3.5.0)
+Imports: 
+    parallel

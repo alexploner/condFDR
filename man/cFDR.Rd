@@ -4,7 +4,7 @@
 \alias{cFDR}
 \title{Conditional false discovery rate}
 \usage{
-cFDR(data, p1, p2, p2_threshold = 0.001)
+cFDR(data, p1, p2, p2_threshold = 0.001, mc.cores = 1)
 }
 \arguments{
 \item{data}{data frame or (numeric) matrix with p-values as columns}
@@ -17,6 +17,10 @@ cFDR(data, p1, p2, p2_threshold = 0.001)
 
 \item{p2_threshold}{cutoff for pre-filtering on \code{p2}: only variants
 with \code{p2} \eqn{\leq}{<=} \code{p2_threshold} are included}
+
+\item{mc.cores}{number of cores to use for parallel calculation; defaults to one
+(i.e. no parallel calculation), but should absolutely be increased if
+your system supports it, as this will speed up execution very nicely.}
 }
 \value{
 A data frame with column cFDR: if \code{data} was specified, the column
@@ -32,4 +36,7 @@ data(psynth)
 res = cFDR(psynth, "p1", "p2", p2_threshold = 1E-5)
 head(res)
 head(subset(res, cFDR < 0.01))
+}
+\seealso{
+\code{\link[parallel]{mclapply}} for details on parallel calculations and \code{mc.cores}
 }

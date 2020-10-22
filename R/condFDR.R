@@ -10,18 +10,22 @@
 #'           \code{data}, or a vectors of p-values
 #' @param p2_threshold cutoff for pre-filtering on \code{p2}: only variants
 #'                     with \code{p2} \eqn{\leq}{<=} \code{p2_threshold} are included
+#' @param mc.cores number of cores to use for parallel calculation; defaults to one
+#'                 (i.e. no parallel calculation), but should absolutely be increased if
+#'                 your system supports it, as this will speed up execution very nicely.
 #'
 #' @return A data frame with column cFDR: if \code{data} was specified, the column
 #' is simply added at the end; if only \code{p1} and \code{p2} were specified, a
 #' data frame with three columns (the original p-values and the cFDR).
 #'
 #' @export
+#' @seealso \code{\link[parallel]{mclapply}} for details on parallel calculations and \code{mc.cores}
 #' @examples
 #' data(psynth)
 #' res = cFDR(psynth, "p1", "p2", p2_threshold = 1E-5)
 #' head(res)
 #' head(subset(res, cFDR < 0.01))
-cFDR = function(data, p1, p2, p2_threshold = 1E-3)
+cFDR = function(data, p1, p2, p2_threshold = 1E-3, mc.cores = 1)
 {
   ## Extract the data
   if ( !missing(data) ) {
@@ -44,24 +48,24 @@ cFDR = function(data, p1, p2, p2_threshold = 1E-3)
   p1  = p1[ndx]
   p2  = p2[ndx]
 
-  ## Loop
-  nn    <- length(p1)
-  denom <- rep(0, nn)
-  for (i in 1:nn) {
-
+  ## Loop: unwrapped in mcapply
+  nn = length(p1)
+  calc.denom = function(i)
+  {
     ## The edge point
-    x <- p1[i]
-    y <- p2[i]
+    x = p1[i]
+    y = p2[i]
 
     ## Vectors
     dd = p2 <= y
     ee = dd & (p1 <= x)
 
     ## Combine
-    denom[i] = length(which(ee)) / length(which(dd))
-
+    sum(ee) / sum(dd)
   }
+  denom = unlist( parallel::mclapply(1:nn, calc.denom, mc.cores = mc.cores) )
 
+  ## Calibrate the p-values
   cfdr = p1 / denom
 
   ## Build output
