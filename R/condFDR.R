@@ -93,18 +93,22 @@ cFDR = function(data, p1, p2, p2_threshold = 1E-3, mc.cores = 1)
 #' @param p_threshold cutoff for pre-filtering the p-values; a vector of either length one (in which
 #'          case both sets of pvalues have the same threshold) or length two (where the thresholds refer
 #'          to \code{p1} and \code{p2} in that order).
+#' @param mc.cores number of cores to use for parallel calculation; defaults to one
+#'                 (i.e. no parallel calculation), but should absolutely be increased if
+#'                 your system supports it, as this will speed up execution very nicely.
 #'
 #' @return A data frame with columns cFDR1, cFDR2, and ccFDR: if \code{data} was specified,
 #' the columns are simply added at the end; if only \code{p1} and \code{p2} were specified, a
 #' data frame with five columns (the original p-values, plus the cFDRs and the ccFDR).
 #'
 #' @export
+#' @seealso \code{\link[parallel]{mclapply}} for details on parallel calculations and \code{mc.cores}
 #' @examples
 #' data(psynth)
 #' res = ccFDR(psynth, "p1", "p2", p_threshold = 1E-5)
 #' head(res)
 #' head(subset(res, ccFDR < 0.01))
-ccFDR = function(data, p1, p2, p_threshold = 1E-3)
+ccFDR = function(data, p1, p2, p_threshold = 1E-3, mc.cores = 1)
 {
   ## Extract the data
   if ( !missing(data) ) {
@@ -129,13 +133,12 @@ ccFDR = function(data, p1, p2, p_threshold = 1E-3)
   p2  = p2[ndx]
 
   ## Loop
-  nn    <- length(p1)
-  denom1 <- denom2 <- rep(0, nn)
-  for (i in 1:nn) {
-
+  nn = length(p1)
+  calc.denoms = function(i)
+  {
     ## The edge point
-    x <- p1[i]
-    y <- p2[i]
+    x = p1[i]
+    y = p2[i]
 
     ## Vectors
     dd1 = p2 <= y
@@ -144,17 +147,23 @@ ccFDR = function(data, p1, p2, p_threshold = 1E-3)
 
     ## Combine
     ee_n = length(which(ee))
-    denom1[i] =  ee_n / length(which(dd2))
-    denom2[i] =  ee_n / length(which(dd2))
+    denom1 =  ee_n / length(which(dd2))
+    denom2 =  ee_n / length(which(dd2))
 
+    c(denom1, denom2)
   }
+  ## This needs a bit care: unlist generates a vector with alternating denom1/denom2
+  ## We can pour this vector into a matrix with two rows, without having to re-order,
+  ## and can extract the rows in the next step
+  denoms = matrix( unlist( parallel::mclapply(1:nn, calc.denoms, mc.cores = mc.cores) ), nrow = 2)
 
-  cfdr1 = p1 / denom1
-  cfdr2 = p2 / denom2
+  ## Calibrate the p-values; note: use rows!
+  cfdr1 = p1 / denoms[1, ]
+  cfdr2 = p2 / denoms[2, ]
   ccfdr = pmax(cfdr1, cfdr2)
 
   ## Build output
-  if (!missing(data) ) {
+  if ( !missing(data) ) {
     ret = cbind(data[ndx, ], cFDR1 = cfdr1, cFDR2 = cfdr2, ccFDR = ccfdr)
   } else {
     ret = data.frame(p1, p2, cFDR1 = cfdr1, cFDR2 = cfdr2, ccFDR = ccfdr)
@@ -163,6 +172,7 @@ ccFDR = function(data, p1, p2, p_threshold = 1E-3)
 
   ret
 }
+
 
 #' Synthetic SNP p-values
 #'

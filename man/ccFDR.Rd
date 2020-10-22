@@ -4,7 +4,7 @@
 \alias{ccFDR}
 \title{Conjunctional conditional false discovery rate}
 \usage{
-ccFDR(data, p1, p2, p_threshold = 0.001)
+ccFDR(data, p1, p2, p_threshold = 0.001, mc.cores = 1)
 }
 \arguments{
 \item{data}{data frame or (numeric) matrix with p-values as columns}
@@ -18,6 +18,10 @@ ccFDR(data, p1, p2, p_threshold = 0.001)
 \item{p_threshold}{cutoff for pre-filtering the p-values; a vector of either length one (in which
 case both sets of pvalues have the same threshold) or length two (where the thresholds refer
 to \code{p1} and \code{p2} in that order).}
+
+\item{mc.cores}{number of cores to use for parallel calculation; defaults to one
+(i.e. no parallel calculation), but should absolutely be increased if
+your system supports it, as this will speed up execution very nicely.}
 }
 \value{
 A data frame with columns cFDR1, cFDR2, and ccFDR: if \code{data} was specified,
@@ -33,4 +37,7 @@ data(psynth)
 res = ccFDR(psynth, "p1", "p2", p_threshold = 1E-5)
 head(res)
 head(subset(res, ccFDR < 0.01))
+}
+\seealso{
+\code{\link[parallel]{mclapply}} for details on parallel calculations and \code{mc.cores}
 }
