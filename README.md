@@ -42,7 +42,7 @@ head(subset(res2, ccFDR < 0.01))
 
 ## Credit
 
-This package is partially based on code from package [cfdr](https://github.com/jamesliley/cfdr), written by [James Liley](james.liley@igmm.ed.ac.uk) and [Chris Wallace](cew54@cam.ac.uk), and 
+This package is partially based on code from package [cfdr](https://github.com/jamesliley/cfdr), written by [James Liley](mailto:james.liley@igmm.ed.ac.uk) and [Chris Wallace](mailto:cew54@cam.ac.uk), and 
 published under the MIT license. 
 
 
